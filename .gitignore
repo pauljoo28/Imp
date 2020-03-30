@@ -1,0 +1,26 @@
+# macOS cruft.
+.DS_Store
+
+# Dune build products.
+_build/
+
+# Merlin configuring file for Vim and Emacs.
+.merlin
+
+# Testing files.
+*.out
+*.temp
+
+# OCaml
+*.cmo
+*.cmi
+
+# VSCode
+.vscode/
+
+# Build
+dist/
+
+# Data
+data/
+.ipynb_checkpoints
