@@ -1,5 +1,14 @@
 open Impl
 
+let program_file : string option ref = ref None
+let set_program_file (arg : string) : unit = 
+    match !program_file with
+    | None -> program_file := Some arg
+    | Some _ -> ()  (* Don't overwrite program_file *)
+
+let spec_list = []
+let usage_msg = "Provide a single imp program file to run this interpreter on"
+
 let parse_prog f : ImpAST.prog =
     let ch =
         try open_in f
@@ -22,4 +31,8 @@ let parse_prog f : ImpAST.prog =
     close_in ch; prog
 
 let _ =
-    print_endline "Hello world!"
+    Arg.parse spec_list set_program_file usage_msg;
+    match !program_file with
+    None -> print_string (Arg.usage_string spec_list usage_msg) | Some f ->
+    let prog = parse_prog f in
+    Interp.eval_prog prog
