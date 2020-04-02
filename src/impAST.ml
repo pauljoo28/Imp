@@ -1,5 +1,6 @@
 type aexp =
   | Num of int
+  | Var of string
   | Plus of (aexp * aexp)
   | Minus of (aexp * aexp)
   | Mult of (aexp * aexp)
@@ -17,14 +18,12 @@ type bexp =
 
 type com = 
   | Skip
-  (* We add print as a command for ease of use *)
-  (* The semantics are just evaluate aexp until we get a number *)
-  (* Then print that number and return "Skip" *)
   | APrint of aexp
   | BPrint of bexp
   | Seq of (com * com)
   | ESeq of com
   | CParen of com
   | If of (bexp * com * com)
+  | Assign of (string * aexp)
 
 type prog = com

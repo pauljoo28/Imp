@@ -30,6 +30,7 @@ exception ParseException of string
 %token ELSE
 %token THEN
 %token END
+%token ASSIGN
 
 (* Precedences *)
 %left PLUS MINUS
@@ -67,6 +68,8 @@ com:
     { CParen c }
   | IF; b = bexp; THEN; c1 = com; ELSE; c2 = com; END;
     { If (b, c1, c2) }
+  | v = ID; ASSIGN; a = aexp;
+    { Assign (v, a) }
 
 bexp:
   | TRUE;
@@ -89,6 +92,8 @@ bexp:
 aexp:
   | n = NUM;
     { Num(n) }
+  | v = ID;
+    { Var v }
   | n1 = aexp; PLUS; n2 = aexp;
      { Plus (n1, n2) }
   | n1 = aexp; MINUS; n2 = aexp;
