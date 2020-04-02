@@ -7,6 +7,7 @@ type aexp =
 type bexp =
   | True
   | False
+  | Equal of (aexp * aexp)
 
 type com = 
   | Skip

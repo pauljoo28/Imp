@@ -25,8 +25,12 @@ let rec step_aexp (a : aexp) : aexp =
 
 let step_bexp (b : bexp) : bexp =
   match b with
-  | True -> failwith "No evaluation possible for true"
-  | False -> failwith "No evaluation possible for false"
+  | True -> True
+  | False -> False
+  | Equal (n1, n2) ->
+      (match step_aexp n1, step_aexp n2 with
+      | Num n1', Num n2' -> if n1' = n2' then True else False
+      | _ -> failwith "Equal did not reduce down to num value")
 
 let rec step_com (c : com) : com =
   match c with
@@ -34,11 +38,12 @@ let rec step_com (c : com) : com =
   | APrint a -> 
     (match step_aexp a with
       | Num n -> print_endline (string_of_int n); Skip
-      | _ -> failwith "Plus did not reduce down num value")
+      | _ -> failwith "aexp did not reduce down num value")
   | BPrint b -> 
-    (match b with
+    (match step_bexp b with
       | True -> print_endline (string_of_bool true); Skip
-      | False -> print_endline (string_of_bool false); Skip)
+      | False -> print_endline (string_of_bool false); Skip
+      | _ -> failwith "aexp did not reduce down to num value")
 
 let rec eval_prog (p : prog) : unit =
   match p with

@@ -28,6 +28,7 @@ rule read = parse
   | "*"             { MULT }
   | "+"             { PLUS }
   | "-"             { MINUS }
+  | "="             { EQUAL }
   | num as num      { NUM (int_of_string num) }
   | id as id        { ID id }
   | eof             { EOF }

@@ -18,6 +18,7 @@ exception ParseException of string
 %token MULT
 %token PLUS
 %token MINUS
+%token EQUAL
 
 (* Precedences *)
 %left PLUS MINUS
@@ -54,6 +55,8 @@ bexp:
     { True }
   | FALSE;
     { False }
+  | n1 = aexp; EQUAL; n2 = aexp;
+   { Equal (n1, n2) }
 
 aexp:
   | n = NUM;
