@@ -33,6 +33,7 @@ rule read = parse
   | "<="            { LEQ }
   | "||"            { OR }
   | "&&"            { AND }
+  | ";"             { SEQ }
   | num as num      { NUM (int_of_string num) }
   | id as id        { ID id }
   | eof             { EOF }

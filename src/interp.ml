@@ -67,6 +67,14 @@ let rec step_com (c : com) : com =
       | True -> print_endline (string_of_bool true); Skip
       | False -> print_endline (string_of_bool false); Skip
       | _ -> failwith "aexp did not reduce down to num value")
+  | Seq (c1, c2) ->
+    (match step_com c1, step_com c2 with
+      | Skip, Skip -> Skip
+      | _ -> failwith "Did not fully evaluate program with seq")
+  | ESeq c ->
+    (match step_com c with
+      | Skip -> Skip
+      | _ -> failwith "Did not fully evaluate program with seq")
 
 let rec eval_prog (p : prog) : unit =
   match p with

@@ -23,6 +23,7 @@ exception ParseException of string
 %token LEQ
 %token OR
 %token AND
+%token SEQ
 
 (* Precedences *)
 %left PLUS MINUS
@@ -52,6 +53,10 @@ com:
     { APrint(a) }
   | PRINT; b = bexp;
     { BPrint(b) }
+  | c1 = com; SEQ; c2 = com;
+    { Seq (c1, c2) }
+  | c = com; SEQ;
+    { ESeq c }
 
 bexp:
   | TRUE;

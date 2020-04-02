@@ -20,5 +20,7 @@ type com =
   (* Then print that number and return "Skip" *)
   | APrint of aexp
   | BPrint of bexp
+  | Seq of (com * com)
+  | ESeq of com
 
 type prog = com
