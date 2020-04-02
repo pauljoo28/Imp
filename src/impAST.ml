@@ -25,5 +25,6 @@ type com =
   | Seq of (com * com)
   | ESeq of com
   | CParen of com
+  | If of (bexp * com * com)
 
 type prog = com

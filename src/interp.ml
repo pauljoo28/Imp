@@ -88,6 +88,11 @@ let rec step_com (c : com) : com =
     (match step_com c with
       | Skip -> Skip
       | _ -> failwith "Did not fully evaluate program with paren")
+  | If (b, c1, c2) ->
+    (match step_bexp b with
+      | True -> step_com c1
+      | False -> step_com c2
+      | _ -> failwith "If statement did not fully evaluate program")
 
 let rec eval_prog (p : prog) : unit =
   match p with

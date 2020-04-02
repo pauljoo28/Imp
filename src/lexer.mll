@@ -36,6 +36,9 @@ rule read = parse
   | ";"             { SEQ }
   | "("             { LPAREN }
   | ")"             { RPAREN }
+  | "if"            { IF }
+  | "then"          { THEN }
+  | "else"          { ELSE }
   | num as num      { NUM (int_of_string num) }
   | id as id        { ID id }
   | eof             { EOF }
