@@ -7,9 +7,9 @@ open ImpAST
 
 type sigma = int Assoc.context
 
-let step_aexp (a : aexp) : aexp =
+let rec step_aexp (a : aexp) : aexp =
   match a with
-  | Num n -> failwith "No evaluation possible for a number"
+  | Num n -> Num n
 
 let step_bexp (b : bexp) : bexp =
   match b with
@@ -19,8 +19,13 @@ let step_bexp (b : bexp) : bexp =
 let rec step_com (c : com) : com =
   match c with
   | Skip -> failwith "No evaluation possible for skip"
-  | Print a -> (match a with
-    | Num n -> print_endline (string_of_int n); Skip)
+  | APrint a -> 
+    (match a with
+      | Num n -> print_endline (string_of_int n); Skip)
+  | BPrint b -> 
+    (match b with
+      | True -> print_endline (string_of_bool true); Skip
+      | False -> print_endline (string_of_bool false); Skip)
 
 let rec eval_prog (p : prog) : unit =
   match p with

@@ -19,7 +19,6 @@ exception ParseException of string
 (* Precedences *)
 
 
-
 (* After declaring associativity and precedence, we need to declare what
    the starting point is for parsing the language.  The following
    declaration says to start with a rule (defined below) named [prog].
@@ -41,7 +40,9 @@ com:
   | SKIP;
     { Skip }
   | PRINT; a = aexp;
-    { Print(a) }
+    { APrint(a) }
+  | PRINT; b = bexp;
+    { BPrint(b) }
 
 bexp:
   | TRUE;

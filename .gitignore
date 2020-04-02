@@ -24,3 +24,6 @@ dist/
 # Data
 data/
 .ipynb_checkpoints
+
+# Swp files
+*.swp

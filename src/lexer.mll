@@ -21,12 +21,6 @@ rule read = parse
   | comment         { read lexbuf }
   | white           { read lexbuf }
   | newline         { Lexing.new_line lexbuf; read lexbuf }
-  | "("             { LPAREN }
-  | ")"             { RPAREN }
-  | ";"             { SEQ }
-  | "+"             { ADD }
-  | "*"             { MULT }
-  | "-"             { SUB }
   | "skip"          { SKIP }
   | "print"         { PRINT }
   | "true"          { TRUE }
