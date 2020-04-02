@@ -25,5 +25,6 @@ type com =
   | CParen of com
   | If of (bexp * com * com)
   | Assign of (string * aexp)
+  | While of (bexp * com)
 
 type prog = com

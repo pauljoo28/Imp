@@ -31,6 +31,8 @@ exception ParseException of string
 %token THEN
 %token END
 %token ASSIGN
+%token WHILE
+%token DO
 
 (* Precedences *)
 %left PLUS MINUS
@@ -70,6 +72,8 @@ com:
     { If (b, c1, c2) }
   | v = ID; ASSIGN; a = aexp;
     { Assign (v, a) }
+  | WHILE; b = bexp; DO; c = com; END;
+    { While (b, c) }
 
 bexp:
   | TRUE;

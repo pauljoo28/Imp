@@ -67,7 +67,7 @@ let rec step_bexp (b : bexp) (s : int Assoc.context) : bexp =
 
 let rec step_com (c : com) (s : int Assoc.context) : (com * int Assoc.context) =
   match c with
-  | Skip -> failwith "No evaluation possible for skip"
+  | Skip -> Skip, s
   | APrint a -> 
     (match step_aexp a s with
       | Num n -> print_endline (string_of_int n); (Skip, s)
@@ -101,7 +101,11 @@ let rec step_com (c : com) (s : int Assoc.context) : (com * int Assoc.context) =
     (match step_aexp a s with
       | Num n -> (Skip, Assoc.update v n s)
       | _ -> failwith "aexp did not reduce down num value")
-
+  | While (b, c) ->
+      let c1' = Seq (c, While (b, c)) in
+      let c2' = Skip in
+      step_com (If (b, c1', c2')) s
+    
 let rec eval_prog (p : prog) : unit =
   match p with
   | Skip -> ()
