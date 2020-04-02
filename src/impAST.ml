@@ -8,6 +8,7 @@ type bexp =
   | True
   | False
   | Equal of (aexp * aexp)
+  | Not of bexp
 
 type com = 
   | Skip

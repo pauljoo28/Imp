@@ -23,7 +23,7 @@ let rec step_aexp (a : aexp) : aexp =
       | Num n1', Num n2' -> Num (n1' * n2')
       | _ -> failwith "Mult did not reduce down num value")
 
-let step_bexp (b : bexp) : bexp =
+let rec step_bexp (b : bexp) : bexp =
   match b with
   | True -> True
   | False -> False
@@ -31,6 +31,11 @@ let step_bexp (b : bexp) : bexp =
       (match step_aexp n1, step_aexp n2 with
       | Num n1', Num n2' -> if n1' = n2' then True else False
       | _ -> failwith "Equal did not reduce down to num value")
+  | Not b ->
+      (match step_bexp b with
+      | True -> False
+      | False -> True
+      | _ -> failwith "Not did not reduce down to bool value")
 
 let rec step_com (c : com) : com =
   match c with

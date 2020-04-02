@@ -19,11 +19,11 @@ exception ParseException of string
 %token PLUS
 %token MINUS
 %token EQUAL
+%token NOT
 
 (* Precedences *)
 %left PLUS MINUS
 %left MULT
-
 
 (* After declaring associativity and precedence, we need to declare what
    the starting point is for parsing the language.  The following
@@ -57,6 +57,8 @@ bexp:
     { False }
   | n1 = aexp; EQUAL; n2 = aexp;
    { Equal (n1, n2) }
+  | NOT; b = bexp;
+   { Not (b) }
 
 aexp:
   | n = NUM;
