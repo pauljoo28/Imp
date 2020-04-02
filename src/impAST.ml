@@ -1,5 +1,8 @@
 type aexp =
   | Num of int
+  | Plus of (aexp * aexp)
+  | Minus of (aexp * aexp)
+  | Mult of (aexp * aexp)
 
 type bexp =
   | True

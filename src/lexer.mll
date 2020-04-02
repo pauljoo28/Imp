@@ -25,6 +25,9 @@ rule read = parse
   | "print"         { PRINT }
   | "true"          { TRUE }
   | "false"         { FALSE }
+  | "*"             { MULT }
+  | "+"             { PLUS }
+  | "-"             { MINUS }
   | num as num      { NUM (int_of_string num) }
   | id as id        { ID id }
   | eof             { EOF }
