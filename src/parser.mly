@@ -29,6 +29,7 @@ exception ParseException of string
 %token IF
 %token ELSE
 %token THEN
+%token END
 
 (* Precedences *)
 %left PLUS MINUS
@@ -64,7 +65,7 @@ com:
     { ESeq c }
   | LPAREN; c = com; RPAREN;
     { CParen c }
-  | IF; b = bexp; THEN; c1 = com; ELSE; c2 = com;
+  | IF; b = bexp; THEN; c1 = com; ELSE; c2 = com; END;
     { If (b, c1, c2) }
 
 bexp:
