@@ -3,6 +3,7 @@ type aexp =
   | Plus of (aexp * aexp)
   | Minus of (aexp * aexp)
   | Mult of (aexp * aexp)
+  | AParen of aexp
 
 type bexp =
   | True
@@ -12,6 +13,7 @@ type bexp =
   | Not of bexp
   | Or of (bexp * bexp)
   | And of (bexp * bexp)
+  | BParen of bexp
 
 type com = 
   | Skip
@@ -22,5 +24,6 @@ type com =
   | BPrint of bexp
   | Seq of (com * com)
   | ESeq of com
+  | CParen of com
 
 type prog = com

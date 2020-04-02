@@ -22,6 +22,10 @@ let rec step_aexp (a : aexp) : aexp =
       (match step_aexp n1, step_aexp n2 with
       | Num n1', Num n2' -> Num (n1' * n2')
       | _ -> failwith "Mult did not reduce down num value")
+  | AParen a ->
+    (match step_aexp a with
+      | Num n -> Num n
+      | _ -> failwith "Did not fully evaluate program to num")
 
 let rec step_bexp (b : bexp) : bexp =
   match b with
@@ -54,6 +58,11 @@ let rec step_bexp (b : bexp) : bexp =
       | False, True -> False
       | False, False -> False
       | _ -> failwith "And did not reduce down to bool value")
+  | BParen b ->
+    (match step_bexp b with
+      | True -> True
+      | False -> False
+      | _ -> failwith "Did not fully evaluate program with paren")
 
 let rec step_com (c : com) : com =
   match c with
@@ -75,6 +84,10 @@ let rec step_com (c : com) : com =
     (match step_com c with
       | Skip -> Skip
       | _ -> failwith "Did not fully evaluate program with seq")
+  | CParen c ->
+    (match step_com c with
+      | Skip -> Skip
+      | _ -> failwith "Did not fully evaluate program with paren")
 
 let rec eval_prog (p : prog) : unit =
   match p with

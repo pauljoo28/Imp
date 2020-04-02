@@ -34,6 +34,8 @@ rule read = parse
   | "||"            { OR }
   | "&&"            { AND }
   | ";"             { SEQ }
+  | "("             { LPAREN }
+  | ")"             { RPAREN }
   | num as num      { NUM (int_of_string num) }
   | id as id        { ID id }
   | eof             { EOF }

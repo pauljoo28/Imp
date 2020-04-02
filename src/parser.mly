@@ -24,6 +24,8 @@ exception ParseException of string
 %token OR
 %token AND
 %token SEQ
+%token LPAREN
+%token RPAREN
 
 (* Precedences *)
 %left PLUS MINUS
@@ -57,6 +59,8 @@ com:
     { Seq (c1, c2) }
   | c = com; SEQ;
     { ESeq c }
+  | LPAREN; c = com; RPAREN;
+    { CParen c }
 
 bexp:
   | TRUE;
@@ -73,6 +77,8 @@ bexp:
    { Or (b1, b2) }
  | b1 = bexp; AND; b2 = bexp;
    { And (b1, b2) }
+  | LPAREN; b = bexp; RPAREN;
+    { BParen b }
 
 aexp:
   | n = NUM;
@@ -83,5 +89,7 @@ aexp:
      { Minus (n1, n2) }
   | n1 = aexp; MULT; n2 = aexp;
      { Mult (n1, n2) }
+  | LPAREN; a = aexp; RPAREN;
+    { AParen a }
 
 %%
