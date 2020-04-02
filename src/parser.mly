@@ -20,6 +20,9 @@ exception ParseException of string
 %token MINUS
 %token EQUAL
 %token NOT
+%token LEQ
+%token OR
+%token AND
 
 (* Precedences *)
 %left PLUS MINUS
@@ -57,8 +60,14 @@ bexp:
     { False }
   | n1 = aexp; EQUAL; n2 = aexp;
    { Equal (n1, n2) }
+  | n1 = aexp; LEQ; n2 = aexp;
+   { Leq (n1, n2) }
   | NOT; b = bexp;
    { Not (b) }
+ | b1 = bexp; OR; b2 = bexp;
+   { Or (b1, b2) }
+ | b1 = bexp; AND; b2 = bexp;
+   { And (b1, b2) }
 
 aexp:
   | n = NUM;

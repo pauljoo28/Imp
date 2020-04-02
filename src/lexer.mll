@@ -30,6 +30,9 @@ rule read = parse
   | "-"             { MINUS }
   | "="             { EQUAL }
   | "!"             { NOT }
+  | "<="            { LEQ }
+  | "||"            { OR }
+  | "&&"            { AND }
   | num as num      { NUM (int_of_string num) }
   | id as id        { ID id }
   | eof             { EOF }
