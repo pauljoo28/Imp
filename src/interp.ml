@@ -64,7 +64,7 @@ let rec step_expr (e : expr) (s : int Assoc.context) :
     (match step_expr a s with
       | Num n, _ -> print_endline (string_of_int n); (Skip, s)
       | True, _ -> print_endline (string_of_bool true); (Skip, s)
-      | False, _ -> print_endline (string_of_bool true); (Skip, s)
+      | False, _ -> print_endline (string_of_bool false); (Skip, s)
       | _ -> failwith "aexp did not reduce down num value")
   | Seq (c1, c2) ->
     (match step_expr c1 s with
