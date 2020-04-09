@@ -4,6 +4,7 @@
 (* This is intentional to get started, but you can make it less annoying if you want *)
 
 open ImpAST
+open Check
 
 type sigma = int Assoc.context
 
@@ -95,5 +96,6 @@ let rec eval_prog (p : prog) : unit =
   match p with
   | Skip -> ()
   | _ -> 
+      check_prog p;
       match (step_expr p Assoc.empty) with
       | p', _ -> eval_prog p'

@@ -1,3 +1,8 @@
+type typ =
+  | Int
+  | Bool
+  | Unit
+
 type expr =
   | Num of int
   | Var of string
