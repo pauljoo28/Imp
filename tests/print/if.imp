@@ -1,10 +1,10 @@
-if true then 
+if true {
   print 2; 
-else 
+} else {
   print 3;
-end;
-if false then 
+};
+if false {
   print 2; 
-else 
+} else {
   print 3; 
-end;
+};

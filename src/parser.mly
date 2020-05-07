@@ -32,7 +32,6 @@ exception ParseException of string
 %token END
 %token ASSIGN
 %token WHILE
-%token DO
 
 (* Precedences *)
 %left SEQ
@@ -76,11 +75,11 @@ expr:
     { Skip }
   | PRINT; a = expr;
     { Print(a) }
-  | IF; b = expr; THEN; c1 = expr; ELSE; c2 = expr; END;
+  | IF; b = expr; THEN; c1 = expr; END; ELSE; THEN; c2 = expr; END;
     { If (b, c1, c2) }
   | v = ID; ASSIGN; a = expr;
     { Assign (v, a) }
-  | WHILE; b = expr; DO; c = expr; END;
+  | WHILE; b = expr; THEN; c = expr; END;
     { While (b, c) }
   | TRUE;
     { True }

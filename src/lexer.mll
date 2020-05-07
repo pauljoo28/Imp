@@ -37,12 +37,11 @@ rule read = parse
   | "("             { LPAREN }
   | ")"             { RPAREN }
   | "if"            { IF }
-  | "then"          { THEN }
+  | "{"             { THEN }
   | "else"          { ELSE }
-  | "end"           { END }
+  | "}"             { END }
   | "="             { ASSIGN }
   | "while"         { WHILE }
-  | "do"            { DO }
   | num as num      { NUM (int_of_string num) }
   | id as id        { ID id }
   | eof             { EOF }
