@@ -28,7 +28,7 @@ rule read = parse
   | "*"             { MULT }
   | "+"             { PLUS }
   | "-"             { MINUS }
-  | "="             { EQUAL }
+  | "=="            { EQUAL }
   | "!"             { NOT }
   | "<="            { LEQ }
   | "||"            { OR }
@@ -40,7 +40,7 @@ rule read = parse
   | "then"          { THEN }
   | "else"          { ELSE }
   | "end"           { END }
-  | ":="            { ASSIGN }
+  | "="             { ASSIGN }
   | "while"         { WHILE }
   | "do"            { DO }
   | num as num      { NUM (int_of_string num) }
