@@ -40,6 +40,7 @@ exception ParseException of string
 %left PRINT
 
 %left ASSIGN
+%left DECLARE
 
 %left AND OR
 

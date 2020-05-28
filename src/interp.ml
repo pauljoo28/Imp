@@ -72,14 +72,14 @@ let rec step_expr (e : expr) (s : int Assoc.context) (t : expr Assoc.context) :
       | _ -> failwith "aexp did not reduce down num value")
   | Seq (c1, c2) ->
     (match step_expr c1 s t with
-      | (Skip, s1', _) -> 
-          (match step_expr c2 s1' t with
-            | (Skip, s2', _) -> (Skip, s2', t)
+      | (Skip, s1', t1') -> 
+          (match step_expr c2 s1' t1' with
+            | (Skip, s2', t2') -> (Skip, s2', t2')
             | _ -> failwith "Did not fully evaluate program with seq")
       | _ -> failwith "Did not fully evaluate program with seq")
   | ESeq c ->
     (match step_expr c s t with
-      | (Skip, s', _) -> (Skip, s', t)
+      | (Skip, s', t') -> (Skip, s', t')
       | _ -> failwith "Did not fully evaluate program with seq")
   | If (b, c1, c2) ->
     (match step_expr b s t with
@@ -96,12 +96,12 @@ let rec step_expr (e : expr) (s : int Assoc.context) (t : expr Assoc.context) :
       step_expr (If (b, c1', c2')) s t
   | Declare (v, e) -> 
     (match step_expr e s t with
-      | Num n, _, _ -> (Skip, Assoc.update v n s, Assoc.update v e t)
+     | Num n, _, _ -> (Skip, Assoc.update v n s, Assoc.update v e t)
       | _ -> failwith "aexp did not reduce to num value")
   | Update v ->
     let e = Assoc.lookup v t in
     (match step_expr e s t with
-      | Num n, _, _ -> (Skip, s, t)
+      | Num n, _, _ -> (Skip, Assoc.update v n s, t)
       | _ -> failwith "aexp did not reduce to num in update statement")
       
     
