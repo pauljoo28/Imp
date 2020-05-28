@@ -24,5 +24,7 @@ type expr =
   | If of (expr * expr * expr)
   | Assign of (string * expr)
   | While of (expr * expr)
+  | Declare of (string * expr)
+  | Update of string
 
 type prog = expr

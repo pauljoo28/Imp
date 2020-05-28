@@ -32,6 +32,8 @@ exception ParseException of string
 %token END
 %token ASSIGN
 %token WHILE
+%token UPDATE
+%token DECLARE
 
 (* Precedences *)
 %left SEQ
@@ -105,5 +107,9 @@ expr:
      { Minus (n1, n2) }
   | n1 = expr; MULT; n2 = expr;
      { Mult (n1, n2) }
+  | v = ID; DECLARE; a = expr;
+    { Declare (v, a) }
+  | UPDATE; v = ID;
+    { Update v }
 
 %%

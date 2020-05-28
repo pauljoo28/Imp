@@ -41,6 +41,8 @@ rule read = parse
   | "else"          { ELSE }
   | "}"             { END }
   | "="             { ASSIGN }
+  | ":="            { DECLARE }
+  | "update"        { UPDATE }
   | "while"         { WHILE }
   | num as num      { NUM (int_of_string num) }
   | id as id        { ID id }
