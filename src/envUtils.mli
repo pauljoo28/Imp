@@ -24,3 +24,8 @@ val declare_delta : string -> expr -> string list Assoc.context -> string list
  * parameters are : [first alpha] [second alpha] *)
 val intersect : int Assoc.context -> int Assoc.context -> int Assoc.context
 
+(* intersect_if
+ * paramters are : [variable] [alpha0] [alpha1] [alpha2] *)
+val intersect_if : int Assoc.context -> int Assoc.context -> int Assoc.context
+          -> int Assoc.context
+

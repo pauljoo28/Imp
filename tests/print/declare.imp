@@ -28,6 +28,7 @@ while (x <= 10) {
 print z;
 
 // Testing if statement
+x = 2;
 if (x <= 10) {
   y = 2;
   update z;

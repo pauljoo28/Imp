@@ -102,3 +102,8 @@ let rec help_intersect (keys : string list) (b1 : int Assoc.context)
 let intersect (prev_b : int Assoc.context) (branch_b : int Assoc.context) : int Assoc.context =
   let keys = Assoc.keys prev_b in
   help_intersect keys prev_b branch_b Assoc.empty
+
+let intersect_if (a : int Assoc.context) (a1 : int Assoc.context) (a2 : int Assoc.context) : int
+    Assoc.context =
+  let keys = Assoc.keys a in
+  help_intersect keys a1 a2 Assoc.empty
