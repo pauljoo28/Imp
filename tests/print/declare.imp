@@ -1,3 +1,5 @@
+// Testing basics
+
 a = 2;
 b = 3;
 
@@ -10,3 +12,28 @@ a = 20;
 update c;
 
 print c;
+
+// Testing while loop
+x = 2;
+y = 3;
+z := x + y;
+
+print z;
+
+while (x <= 10) {
+  x = x + 1;
+  update z;
+};
+
+print z;
+
+// Testing if statement
+if (x <= 10) {
+  y = 2;
+  update z;
+} else {
+  x = 4;
+  update z;
+};
+
+print z;

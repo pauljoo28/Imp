@@ -77,12 +77,15 @@ let rec check_expr (e : expr) (g : gamma) (a : alpha) (b : beta) (d : delta)
     | If (b1, c1, c2) ->
         (match check_expr b1 g a b d, check_expr c1 g a b d, check_expr c2
                  g a b d with
-          | (Bool, _, _, _, _), (Unit, _, _, _, _), (Unit, _, _, _, _) -> 
-                Unit, g, a, b, d
+          | (Bool, _, _, _, _), (Unit, _, a', _, _), (Unit, _, a'', _, _) -> 
+              let first_a = EnvUtils.intersect a a' in
+              let second_a = EnvUtils.intersect first_a a'' in
+                Unit, g, second_a, b, d
           | _ -> failwith "If statement rule violated")
     | While (b1, c) ->
         (match check_expr b1 g a b d, check_expr c g a b d with
-          | (Bool, _, _, _, _), (Unit, _, _, _, _) -> Unit, g, a, b, d
+          | (Bool, _, _, _, _), (Unit, _, a', _, _) -> 
+              Unit, g, EnvUtils.intersect a a', b, d
           | _ -> failwith "while statement rule violated")
     | Assign (v, n) ->
         if Assoc.mem v b then

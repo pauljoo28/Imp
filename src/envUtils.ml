@@ -59,3 +59,18 @@ let rec specials_delta (v : string) (e : expr) (d : string list Assoc.context) :
 
 let declare_delta (v : string) (e : expr) (b : string list Assoc.context) : string list Assoc.context =
   Assoc.update v [] b |> specials_delta v e
+
+let rec help_intersect (keys : string list) (b1 : int Assoc.context)
+    (b2 : int Assoc.context) (builder : int Assoc.context) : int Assoc.context =
+  match keys with
+  | [] -> builder
+  | h :: t -> 
+      if (Assoc.mem h b2) then
+        Assoc.update h (min (Assoc.lookup h b1) (Assoc.lookup h b2))
+          (help_intersect t b1 b2 builder)
+      else
+        help_intersect t b1 b2 builder
+
+let intersect (prev_b : int Assoc.context) (branch_b : int Assoc.context) : int Assoc.context =
+  let keys = Assoc.keys prev_b in
+  help_intersect keys prev_b branch_b Assoc.empty
