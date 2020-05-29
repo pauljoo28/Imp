@@ -113,7 +113,7 @@ let rec check_expr (e : expr) (g : gamma) (a : alpha) (b : beta) (d : delta)
           | _ -> failwith "declare expression not an int")
     | Update v ->
         (if Assoc.mem v b then
-          Unit, g, (Assoc.update v 1 a), b, d
+          Unit, g, (EnvUtils.update v a b), b, d
         else
           failwith "variable not defined")
   )

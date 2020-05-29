@@ -5,8 +5,36 @@ let rec zero (mylist : string list) (a : int Assoc.context) : int Assoc.context 
   | [] -> a
   | h :: t -> zero t (Assoc.update h 0 a)
 
-let invalidate (x : string) (a : int Assoc.context) (d : string list Assoc.context) : int Assoc.context = 
+let invalidate_immediate (x : string) (a : int Assoc.context) (d : string list Assoc.context) : int Assoc.context = 
   zero (Assoc.lookup x d) a
+
+let rec invalidate_list (dep : string list) (a : int Assoc.context) (d : string list Assoc.context) : int Assoc.context =
+  match dep with
+  | [] -> a
+  | h :: t ->
+      let a' = invalidate_immediate h a d in
+      let h_children = Assoc.lookup h d in
+      let a'' = invalidate_list h_children a' d in
+      invalidate_list t a'' d
+
+let invalidate (x : string) (a : int Assoc.context) 
+    (d : string list Assoc.context) : int Assoc.context =
+  invalidate_list [x] a d
+
+let rec search_zero (deps : string list) (a : int Assoc.context) : bool =
+  match deps with
+  | [] -> true
+  | h :: t ->
+      if (Assoc.lookup h a) = 0 then 
+        (Printf.printf "Must update %s " h; 
+        failwith " Dependencies not updated")
+      else search_zero t a
+
+let update (x : string) (a : int Assoc.context)
+    (b : string list Assoc.context) : int Assoc.context =
+  if search_zero (Assoc.lookup x b) a then Assoc.update x 1 a
+  else failwith "Should not get here"
+
 
 let append_env (key : string) (value : string) (env : string list Assoc.context)
     : string list Assoc.context =

@@ -37,3 +37,24 @@ if (x <= 10) {
 };
 
 print z;
+
+// Testing chains
+
+f := z + a;
+x = 2;
+
+update z;
+update f;
+
+print f;
+
+// Testing 2 level chains
+
+r := f;
+x = 3;
+
+update z;
+update f;
+update r;
+
+print r;

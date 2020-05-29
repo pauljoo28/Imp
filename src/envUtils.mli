@@ -5,6 +5,11 @@ open ImpAST
 val invalidate : string -> int Assoc.context -> string list Assoc.context ->
     int Assoc.context
 
+(* validates
+ * paramters are : [variable] [alpha] [beta] *)
+val update : string -> int Assoc.context -> string list Assoc.context ->
+    int Assoc.context
+
 (* update dependants to dependencies 
  * parameters are : [variable] [expression] [beta] *)
 val declare_beta : string -> expr -> string list Assoc.context -> string list
