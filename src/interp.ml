@@ -108,9 +108,7 @@ let rec step_expr (e : expr) (s : int Assoc.context) (t : expr Assoc.context) :
 let rec eval_prog (p : prog) : unit =
   match p with
   | Skip -> ()
-  (* | _ -> 
-      check_prog p;
-      match (step_expr p Assoc.empty Assoc.empty) with
-      | p', _, _ -> eval_prog p' *)
-  | _ -> match step_expr p Assoc.empty Assoc.empty with
-      | p', _, _ -> eval_prog p'
+  | _ -> 
+    check_prog p;
+    match (step_expr p Assoc.empty Assoc.empty) with
+    | p', _, _ -> eval_prog p'
